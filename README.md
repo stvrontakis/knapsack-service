@@ -1,7 +1,7 @@
 # knapsack-service
 A REST based client-server knapsack implementation with docker support
 
-To run both client-server you will need: jdk1.8, maven and docker working in your environment
+To run both client-server you will need: jdk1.8, maven for them as jars and docker to run them in containers
 
 On project root do mvn clean install to build it.
 
