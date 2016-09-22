@@ -8,13 +8,11 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import parameters.Campaign;
-import parameters.Problem;
+import resources.ClientBuilder;
 import resources.KnapsackClientInfoResource;
 import resources.KnapsackClientResource;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.ws.rs.client.Client;
 
 /**
  * To Punish and Enslave!
@@ -38,32 +36,19 @@ public class KnapsackClientApplication extends Application<KnapsackClientConfigu
     @Override
     public void run(KnapsackClientConfiguration configuration, Environment environment) throws Exception {
         logger.info("Knapsack client spinning up");
-        setupResources(configuration, environment);
-        registerHealthChecks(configuration, environment);
+        Client client = new ClientBuilder().buildClient(environment, configuration);
+        setupResources(configuration, environment, client);
+        registerHealthChecks(configuration, environment, client);
     }
 
-    private void setupResources(KnapsackClientConfiguration config, Environment environment) {
-        final KnapsackClientResource knapsackClientResource = new KnapsackClientResource(environment, config);
+    private void setupResources(KnapsackClientConfiguration config, Environment environment, Client client) {
+        final KnapsackClientResource knapsackClientResource = new KnapsackClientResource(client, environment, config);
         environment.jersey().register(knapsackClientResource);
         final KnapsackClientInfoResource knapsackClientInfoResource = new KnapsackClientInfoResource(config);
         environment.jersey().register(knapsackClientInfoResource);
     }
 
-    private void registerHealthChecks(KnapsackClientConfiguration config, Environment environment) {
-        environment.healthChecks().register("Knapsack server call health check", new KnapsackClientHealthCheck(environment, config));
-    }
-
-    private Problem createProblem() {
-        int inventory = 32356000;
-        List<Campaign> campaigns = new ArrayList<>();
-        campaigns.add(new Campaign("Acme", 2000000, 200));
-        campaigns.add(new Campaign("Lorem", 3500000, 400));
-        campaigns.add(new Campaign("Ipsum", 2300000, 210));
-        campaigns.add(new Campaign("Dolor", 8000000, 730));
-        campaigns.add(new Campaign("SIT", 10000000, 1000));
-        campaigns.add(new Campaign("Amet", 1500000, 160));
-        campaigns.add(new Campaign("Mauris", 1000000, 100));
-        Problem problem = new Problem(inventory, campaigns);
-        return problem;
+    private void registerHealthChecks(KnapsackClientConfiguration config, Environment environment, Client client) {
+        environment.healthChecks().register("Knapsack server call health check", new KnapsackClientHealthCheck(client, environment, config));
     }
 }

@@ -32,11 +32,11 @@ public class KnapsackClientResource {
     private Client jerseyClient;
     private static Logger logger = LoggerFactory.getLogger(KnapsackClientResource.class);
 
-    public KnapsackClientResource(Environment environment, KnapsackClientConfiguration knapsackConfiguration) {
+    public KnapsackClientResource(Client jerseyClient, Environment environment, KnapsackClientConfiguration knapsackConfiguration) {
         logger.info("Starting Knapsack Client");
+        this.jerseyClient = jerseyClient;
         this.environment = environment;
         this.knapsackClientConfiguration = knapsackConfiguration;
-        this.jerseyClient = new ClientBuilder().buildClient(environment, knapsackClientConfiguration);
     }
 
     @POST

@@ -3,7 +3,6 @@ package health;
 import client.KnapsackClient;
 import com.codahale.metrics.health.HealthCheck;
 import configuration.KnapsackClientConfiguration;
-import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.setup.Environment;
 import parameters.Campaign;
 import parameters.Problem;
@@ -26,18 +25,17 @@ public class KnapsackClientHealthCheck extends HealthCheck {
     private int inventory;
     private List<Campaign> campaigns;
     private Problem problem;
+    private Client jerseyClient;
 
-    public KnapsackClientHealthCheck(Environment environment, KnapsackClientConfiguration config) {
-        this.config = config;
+    public KnapsackClientHealthCheck(Client jerseyClient, Environment environment, KnapsackClientConfiguration config) {
+        this.jerseyClient = jerseyClient;
         this.environment = environment;
+        this.config = config;
     }
 
     @Override
     protected Result check() {
         sampleProblem();
-        Client jerseyClient = new JerseyClientBuilder(environment)
-                .using(config.getJerseyClientConfiguration())
-                .build("knapsack-client");
         KnapsackClient client = new KnapsackClient(config.getServerHostname(), jerseyClient);
         try {
             Solution solution = client.getSolution(problem);
