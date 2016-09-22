@@ -17,6 +17,10 @@ public class KnapsackConfiguration extends Configuration {
     private String environment;
 
     @NotEmpty
+    @JsonProperty("optimize_dp")
+    private String optimizeDp;
+
+    @NotEmpty
     @JsonProperty("large_problem_set")
     private String largeProblemSet;
 
@@ -24,19 +28,23 @@ public class KnapsackConfiguration extends Configuration {
         return environment;
     }
 
-    public int getLargeProblemSet() {
-        return Integer.parseInt(largeProblemSet);
+    public void setEnvironment(String environment) {
+        this.environment = environment;
+    }
+
+    public int getOptimizeDp() {
+        return Integer.parseInt(optimizeDp);
+    }
+
+    public void setOptimizeDp(int optimizeDp) {
+        this.optimizeDp = String.valueOf(optimizeDp);
     }
 
     public void setLargeProblemSet(int largeProblemSet) {
         this.largeProblemSet = String.valueOf(largeProblemSet);
     }
 
-    public void setEnvironment(String environment) {
-        this.environment = environment;
-    }
-
-    public void setLargeProblemSet(String largeProblemSet) {
-        this.largeProblemSet = largeProblemSet;
+    public int getLargeProblemSet() {
+        return Integer.parseInt(largeProblemSet);
     }
 }

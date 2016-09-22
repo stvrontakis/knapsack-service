@@ -3,6 +3,7 @@ package algorithm;
 import parameters.Campaign;
 import parameters.Problem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,9 +14,17 @@ import java.util.List;
  * Project: knapsack-service
  */
 public class ExhaustiveKnapsack {
+    private int optimizeDp;
+
+    public ExhaustiveKnapsack(int optimizeDp) {
+        this.optimizeDp = optimizeDp;
+    }
+
     public int[] calculateKnapsack(Problem problem) {
-        int W = problem.getInventory();
-        List<Campaign> campaigns = problem.getCampaigns();
+        Problem optimizedProblem = tryToOptimizeProblem(problem);
+
+        int W = optimizedProblem.getInventory();
+        List<Campaign> campaigns = optimizedProblem.getCampaigns();
 
         int n = campaigns.size();
         int[] maxValueEachStep = new int[W+1];
@@ -40,6 +49,46 @@ public class ExhaustiveKnapsack {
         return trackCombination(lastAddedInSack, campaigns);
     }
 
+    public Problem tryToOptimizeProblem(Problem problem) {
+        if (isOptimizationApplicable(problem)) {
+            int newInventory = problem.getInventory() / optimizeDp;
+            List<Campaign> tempCampaigns = optimizeProblemCampaigns(problem);
+            return new Problem(newInventory, tempCampaigns);
+        } else {
+            return problem;
+        }
+    }
+
+    public boolean isOptimizationApplicable(Problem problem) {
+        List<Campaign> campaigns = problem.getCampaigns();
+        for (Campaign campaign: campaigns) {
+            if(campaign.getImpressions() < optimizeDp) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public List<Campaign> optimizeProblemCampaigns(Problem problem) {
+        List<Campaign> tempCampaigns = copyCampaigns(problem);
+        tempCampaigns.stream().forEach(campaign -> {
+            int newImpressions = campaign.getImpressions() / optimizeDp;
+            campaign.setImpressions(newImpressions);
+        });
+        return tempCampaigns;
+    }
+
+    public List<Campaign> copyCampaigns(Problem problem) {
+        List<Campaign> campaigns = problem.getCampaigns();
+        List<Campaign> tempCampaigns = new ArrayList<>(problem.getCampaigns());
+
+        for(int i = 0; i < tempCampaigns.size(); i++) {
+            Campaign campaign = campaigns.get(i);
+            tempCampaigns.set(i, new Campaign(campaign.getCustomer(), campaign.getImpressions(), campaign.getRevenue()));
+        }
+        return tempCampaigns;
+    }
+
     protected void setAllArrayValue(int[] array, int value) {
         for(int i = 0; i< array.length; i++) {
             array[i] = value;
@@ -47,7 +96,7 @@ public class ExhaustiveKnapsack {
     }
 
     private int[] trackCombination(int[] lastAddedInSack, List<Campaign> campaigns) {
-        int[] combination = new int[campaigns.size()];
+        int[] optimalCombination = new int[campaigns.size()];
 
         int postTracker = lastAddedInSack.length-1;
         int itemTracker = lastAddedInSack[postTracker];
@@ -56,10 +105,10 @@ public class ExhaustiveKnapsack {
         {
             Campaign campaign = campaigns.get(itemTracker);
             int wj = campaign.getImpressions();
-            combination[itemTracker]++;
+            optimalCombination[itemTracker]++;
             postTracker = postTracker - wj;
             itemTracker = lastAddedInSack[postTracker];
         }
-        return combination;
+        return optimalCombination;
     }
 }

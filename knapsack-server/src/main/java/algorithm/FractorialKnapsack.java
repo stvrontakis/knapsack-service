@@ -14,15 +14,11 @@ import java.util.List;
  * Project: knapsack-service
  */
 public class FractorialKnapsack {
+
     public int[] calculateKnapsack(Problem problem) {
         int W = problem.getInventory();
-        List<Campaign> campaigns = problem.getCampaigns();
-        List<Campaign> tempCampaigns = new ArrayList<>(problem.getCampaigns());
+        List<Campaign> tempCampaigns = copyCampaigns(problem);
 
-        for(int i = 0; i < tempCampaigns.size(); i++) {
-            Campaign campaign = campaigns.get(i);
-            tempCampaigns.set(i, new Campaign(campaign.getCustomer(), campaign.getImpressions(), campaign.getRevenue()));
-        }
         int[] optimal = new int[tempCampaigns.size()];
 
         int n = tempCampaigns.size(); //number of items
@@ -57,5 +53,16 @@ public class FractorialKnapsack {
             }
         }
         return optimal;
+    }
+
+    public List<Campaign> copyCampaigns(Problem problem) {
+        List<Campaign> campaigns = problem.getCampaigns();
+        List<Campaign> tempCampaigns = new ArrayList<>(problem.getCampaigns());
+
+        for(int i = 0; i < tempCampaigns.size(); i++) {
+            Campaign campaign = campaigns.get(i);
+            tempCampaigns.set(i, new Campaign(campaign.getCustomer(), campaign.getImpressions(), campaign.getRevenue()));
+        }
+        return tempCampaigns;
     }
 }

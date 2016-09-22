@@ -2,8 +2,6 @@ package resources;
 
 import client.KnapsackClient;
 import configuration.KnapsackClientConfiguration;
-import io.dropwizard.client.JerseyClientBuilder;
-import io.dropwizard.client.JerseyClientConfiguration;
 import io.dropwizard.setup.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,16 +27,16 @@ import java.io.IOException;
 @Produces(MediaType.APPLICATION_JSON)
 public class KnapsackClientResource {
     private KnapsackClient knapsackClient;
+    private Environment environment;
+    private KnapsackClientConfiguration knapsackClientConfiguration;
+    private ClientBuilder clientBuilder;
     private static Logger logger = LoggerFactory.getLogger(KnapsackClientResource.class);
 
-    public KnapsackClientResource(Environment environment, KnapsackClientConfiguration knapsackConfiguration) {
+    public KnapsackClientResource(Environment environment, KnapsackClientConfiguration knapsackConfiguration, ClientBuilder builder) {
         logger.info("Starting Knapsack Client");
-
-        JerseyClientConfiguration jerseyClientConfiguration = knapsackConfiguration.getJerseyClientConfiguration();
-        JerseyClientBuilder builder = new JerseyClientBuilder(environment);
-        builder.using(jerseyClientConfiguration);
-        Client jerseyClient = builder.build("knapsack-client");
-        knapsackClient = new KnapsackClient(knapsackConfiguration.getServerHostname(), jerseyClient);
+        this.environment = environment;
+        this.knapsackClientConfiguration = knapsackConfiguration;
+        this.clientBuilder = builder;
     }
 
     @POST
@@ -46,6 +44,8 @@ public class KnapsackClientResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Solution call(Problem problem) throws IOException {
+        Client jerseyClient = clientBuilder.buildClient(environment, knapsackClientConfiguration);
+        knapsackClient = new KnapsackClient(knapsackClientConfiguration.getServerHostname(), jerseyClient);
         return knapsackClient.getSolution(problem);
     }
 }

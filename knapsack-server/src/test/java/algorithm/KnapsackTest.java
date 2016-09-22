@@ -28,7 +28,7 @@ public class KnapsackTest {
     public void testKnapsackExhaustive() {
         sample1();
 
-        Knapsack knapsack = new Knapsack(100000000);
+        Knapsack knapsack = new Knapsack(3, 100000000);
         int[] optimal = knapsack.calculateKnapsack(problem);
         int[] expected = {0, 8, 0, 0, 0, 2, 1};
         assertTrue(Arrays.equals(optimal, expected));
@@ -38,7 +38,7 @@ public class KnapsackTest {
     public void testKnapsackFractorial() {
         sample3();
 
-        Knapsack knapsack = new Knapsack(100000000);
+        Knapsack knapsack = new Knapsack(3, 100000000);
         int[] optimal =  knapsack.calculateKnapsack(problem);
         int[] expected = {2, 0, 666};
         assertTrue(Arrays.equals(optimal, expected));
@@ -48,7 +48,7 @@ public class KnapsackTest {
     public void testCreateSolution() {
         sample3();
 
-        Knapsack knapsack = new Knapsack(100000000);
+        Knapsack knapsack = new Knapsack(3, 100000000);
         int[] optimal = {2, 0, 666};
         Solution solution = knapsack.createSolution(optimal, campaigns);
         assertEquals(13330000, solution.getMaximizedRevenue());

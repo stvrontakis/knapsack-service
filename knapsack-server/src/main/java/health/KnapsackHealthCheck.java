@@ -25,7 +25,7 @@ public class KnapsackHealthCheck extends HealthCheck {
     protected Result check() throws Exception {
         sample1();
 
-        Knapsack knapsack = new Knapsack(100000000);
+        Knapsack knapsack = new Knapsack(3, 100000000);
         int[] optimal = knapsack.calculateKnapsack(problem);
         int[] expected = {0, 8, 0, 0, 0, 2, 1};
         if(Arrays.equals(optimal, expected)) {

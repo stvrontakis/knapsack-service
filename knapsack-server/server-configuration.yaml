@@ -1,5 +1,7 @@
 environment: server
 
+optimize_dp: 3
+
 large_problem_set: 250000000
 
 server:

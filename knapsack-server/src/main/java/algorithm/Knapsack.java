@@ -16,21 +16,23 @@ import java.util.List;
  * Project: knapsack-service
  */
 public class Knapsack {
+    private int optimizeDp;
     private int largeProblemSet;
-    private ExhaustiveKnapsack uek;
-    private FractorialKnapsack ufk;
+    private ExhaustiveKnapsack exhaustiveKnapsack;
+    private FractorialKnapsack fractorialKnapsack;
 
-    public Knapsack(int largeProblemSet) {
+    public Knapsack(int optimizeDp, int largeProblemSet) {
+        this.optimizeDp = optimizeDp;
         this.largeProblemSet = largeProblemSet;
-        uek = new ExhaustiveKnapsack();
-        ufk = new FractorialKnapsack();
+        exhaustiveKnapsack = new ExhaustiveKnapsack(optimizeDp);
+        fractorialKnapsack = new FractorialKnapsack();
     }
 
     public int[] calculateKnapsack(Problem problem) {
         if(problem.getInventory() < largeProblemSet) {
-            return uek.calculateKnapsack(problem);
+            return exhaustiveKnapsack.calculateKnapsack(problem);
         } else {
-            return ufk.calculateKnapsack(problem);
+            return fractorialKnapsack.calculateKnapsack(problem);
         }
     }
 

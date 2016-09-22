@@ -1,9 +1,7 @@
 package resources;
 
 import configuration.KnapsackClientConfiguration;
-import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.setup.Environment;
-import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyInvocation;
 import org.glassfish.jersey.client.JerseyWebTarget;
 import org.junit.Before;
@@ -30,11 +28,11 @@ import static org.mockito.Mockito.when;
 public class KnapsackClientResourceTest {
     private Environment environment;
     private KnapsackClientConfiguration configuration;
-    private JerseyClient jerseyClient;
+    private Client jerseyClient;
 
     @Before
     public void setup() {
-        jerseyClient = mock(JerseyClient.class);
+        jerseyClient = mock(Client.class);
         Response response = mock(Response.class);
         JerseyWebTarget target = mock(JerseyWebTarget.class);
         JerseyInvocation.Builder builder = mock(JerseyInvocation.Builder.class);
@@ -54,19 +52,20 @@ public class KnapsackClientResourceTest {
         configuration.setTimeToLive("60");
 
         environment = mock(Environment.class);
-        Client client = mock(Client.class);
-//        JerseyClientBuilder jerseyClientBuilder = mock(JerseyClientBuilder.class);
-//        JerseyClientBuilder jerseyClientBuilder2 = mock(JerseyClientBuilder.class);
-//        when(any(JerseyClientBuilder.class).using(configuration.getJerseyClientConfiguration())).thenReturn(any(JerseyClientBuilder.class));
-        when(any(JerseyClientBuilder.class).build("knapsack-client")).thenReturn(client);
     }
 
     @Ignore
     public void testKnapsackResource() throws IOException {
         //TODO: fix
         Problem problem = new Problem(3423413, null);
+        Client client = mock(Client.class);
+        ClientBuilder builder = mock(ClientBuilder.class);
+        when(builder.buildClient(environment, configuration)).thenReturn(client);
+        KnapsackClientResource clientResourceReal = new KnapsackClientResource(environment, configuration, builder);
+//        KnapsackClientResource clientResource = mock(KnapsackClientResource.class);
+//        when(clientResource.buildClient(environment, configuration)).thenReturn(client);
 
-        KnapsackClientResource clientResource = new KnapsackClientResource(environment, configuration);
-        Solution solution = clientResource.call(problem);
+
+        Solution solution = clientResourceReal.call(problem);
     }
 }

@@ -27,7 +27,7 @@ public class ExhaustiveKnapsackTest {
     public void testUnboundedKnapsackWithSample1() throws IOException {
         sample1();
 
-        ExhaustiveKnapsack ubSack = new ExhaustiveKnapsack();
+        ExhaustiveKnapsack ubSack = new ExhaustiveKnapsack(3);
         int[] optimal = ubSack.calculateKnapsack(problem);
         int[] expected = {0, 8, 0, 0, 0, 2, 1};
         assertTrue(Arrays.equals(optimal, expected));
@@ -37,7 +37,7 @@ public class ExhaustiveKnapsackTest {
     public void testUnboundedKnapsackWithSample2() throws IOException {
         sample2();
 
-        ExhaustiveKnapsack ubSack = new ExhaustiveKnapsack();
+        ExhaustiveKnapsack ubSack = new ExhaustiveKnapsack(3);
         int[] optimal = ubSack.calculateKnapsack(problem);
         int[] expected = {0, 10000, 0, 14, 1};
 

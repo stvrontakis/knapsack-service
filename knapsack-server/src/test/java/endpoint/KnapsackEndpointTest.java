@@ -26,9 +26,10 @@ public class KnapsackEndpointTest {
 
 
     @Test
-    public void testCalculateKnapsacke() throws IOException {
+    public void testCalculateKnapsack() throws IOException {
         sample3();
         KnapsackConfiguration knapsackConfiguration = new KnapsackConfiguration();
+        knapsackConfiguration.setOptimizeDp(3);
         knapsackConfiguration.setLargeProblemSet(1000000);
         KnapsackEndpoint endpoint = new KnapsackEndpoint(knapsackConfiguration);
         Solution solution = endpoint.calculate(problem);

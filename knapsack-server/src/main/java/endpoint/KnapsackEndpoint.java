@@ -29,7 +29,7 @@ public class KnapsackEndpoint {
 
     public KnapsackEndpoint(KnapsackConfiguration knapsackConfiguration) {
         logger.info("Starting KnapsackEndpoint");
-        this.knapsack = new Knapsack(knapsackConfiguration.getLargeProblemSet());
+        this.knapsack = new Knapsack(knapsackConfiguration.getOptimizeDp(), knapsackConfiguration.getLargeProblemSet());
     }
 
     @POST

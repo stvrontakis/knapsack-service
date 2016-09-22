@@ -28,6 +28,7 @@ public class KnapsackApplicationTest {
     public void setup() {
         config = new KnapsackConfiguration();
         config.setEnvironment("localhost");
+        config.setOptimizeDp(3);
         config.setLargeProblemSet(250000000);
         environment = mock(Environment.class);
         jerseyEnvironment = mock(JerseyEnvironment.class);
