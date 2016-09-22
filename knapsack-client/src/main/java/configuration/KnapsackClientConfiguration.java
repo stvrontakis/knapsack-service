@@ -59,4 +59,28 @@ public class KnapsackClientConfiguration extends Configuration {
     public String getServerHostname() {
         return serverHostname;
     }
+
+    public void setServerHostname(String serverHostname) {
+        this.serverHostname = serverHostname;
+    }
+
+    public void setConnectionTimeout(String connectionTimeout) {
+        this.connectionTimeout = connectionTimeout;
+    }
+
+    public void setSocketTimeout(String socketTimeout) {
+        this.socketTimeout = socketTimeout;
+    }
+
+    public void setTimeToLive(String timeToLive) {
+        this.timeToLive = timeToLive;
+    }
+
+    public void setMaxConnections(String maxConnections) {
+        this.maxConnections = maxConnections;
+    }
+
+    public void setKeepAlive(String keepAlive) {
+        this.keepAlive = keepAlive;
+    }
 }

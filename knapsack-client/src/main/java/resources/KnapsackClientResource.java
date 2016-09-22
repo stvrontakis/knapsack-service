@@ -3,6 +3,7 @@ package resources;
 import client.KnapsackClient;
 import configuration.KnapsackClientConfiguration;
 import io.dropwizard.client.JerseyClientBuilder;
+import io.dropwizard.client.JerseyClientConfiguration;
 import io.dropwizard.setup.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,9 +34,10 @@ public class KnapsackClientResource {
     public KnapsackClientResource(Environment environment, KnapsackClientConfiguration knapsackConfiguration) {
         logger.info("Starting Knapsack Client");
 
-        Client jerseyClient = new JerseyClientBuilder(environment)
-                .using(knapsackConfiguration.getJerseyClientConfiguration())
-                .build("knapsack-client");
+        JerseyClientConfiguration jerseyClientConfiguration = knapsackConfiguration.getJerseyClientConfiguration();
+        JerseyClientBuilder builder = new JerseyClientBuilder(environment);
+        builder.using(jerseyClientConfiguration);
+        Client jerseyClient = builder.build("knapsack-client");
         knapsackClient = new KnapsackClient(knapsackConfiguration.getServerHostname(), jerseyClient);
     }
 
