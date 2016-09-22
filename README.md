@@ -27,6 +27,7 @@ On project root do mvn clean install to build it.
 On knapsack-server folder do: 
 
 java -jar -Xms4096m -Xmx4096m /target/knapsack-server-1.0-SNAPSHOT.jar server server-configuration.yaml
+
 On knapsack-client folder do: 
 
 java -jar -Xms4096m -Xmx4096m /target/knapsack-client-1.0-SNAPSHOT.jar server client-configuration.yaml
