@@ -49,6 +49,6 @@ public class KnapsackClientApplication extends Application<KnapsackClientConfigu
     }
 
     private void registerHealthChecks(KnapsackClientConfiguration config, Environment environment, Client client) {
-        environment.healthChecks().register("Knapsack server call health check", new KnapsackClientHealthCheck(client, environment, config));
+        environment.healthChecks().register("Knapsack server call health check", new KnapsackClientHealthCheck(client, config));
     }
 }

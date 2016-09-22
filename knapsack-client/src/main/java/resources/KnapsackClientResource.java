@@ -45,6 +45,7 @@ public class KnapsackClientResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Solution call(Problem problem) throws IOException {
         knapsackClient = new KnapsackClient(knapsackClientConfiguration.getServerHostname(), jerseyClient);
-        return knapsackClient.getSolution(problem);
+        Solution solution =  knapsackClient.getSolution(problem);
+        return solution;
     }
 }
