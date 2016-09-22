@@ -7,11 +7,11 @@ On project root do mvn clean install to build it.
 
 On knapsack-server folder do: 
 
-docker build -t knapsack-server . to build the server docker image
+docker build -t knapsack-server .
 
 On knapsack-client folder do: 
 
-docker build -t knapsack0client . to build the client docker image
+docker build -t knapsack-client .
 
 To run the server on a local container do: 
 
