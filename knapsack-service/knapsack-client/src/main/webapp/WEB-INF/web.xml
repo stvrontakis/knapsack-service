@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app metadata-complete="true" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <display-name>Knapsack Client</display-name>
+    <distributable/>
+
+
+    <listener>
+        <listener-class>metrics.MetricsListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>metrics.HealthCheckListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>metrics</servlet-name>
+        <servlet-class>com.codahale.metrics.servlets.AdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>metrics</servlet-name>
+        <url-pattern>/metrics/*</url-pattern>
+    </servlet-mapping>
+
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
+
+    <env-entry>
+        <description>JNDI logging context for this app</description>
+        <env-entry-name>logback/context-name</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>knapsackClient</env-entry-value>
+    </env-entry>
+</web-app>

@@ -1,0 +1,42 @@
+server_hostname: http://knapsack-server1:9000
+
+connection_timeout: 3
+
+socket_timeout: 60
+
+time_to_live: 60
+
+max_connections: 5
+
+keep_alive: 60
+
+server:
+  applicationConnectors:
+  - type: http
+    port: 9005
+  adminConnectors:
+  - type: http
+    port: 9006
+
+  requestLog:
+    timeZone: CET
+    appenders:
+      - type: file
+        currentLogFilename: /home/stelios/codebase/knapsack-service/knapsack-client/logs/access.log
+        threshold: ALL
+        archive: true
+        archivedLogFilenamePattern: /home/stelios/codebase/knapsack-service/knapsack-client/logs/access.%d.log.gz
+        archivedFileCount: 10
+
+logging:
+  level: INFO
+  loggers:
+    io.dropwizard: INFO
+  appenders:
+    - type: console
+      timeZone: CET
+    - type: file
+      currentLogFilename: /home/stelios/codebase/knapsack-service/knapsack-client/logs/knapsack.log
+      archivedLogFilenamePattern: /home/stelios/codebase/knapsack-service/knapsack-client/logs/knapsack.%d.log.gz
+      archivedFileCount: 10
+      timeZone: CET

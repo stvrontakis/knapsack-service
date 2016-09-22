@@ -1,0 +1,34 @@
+environment: server
+
+large_problem_set: 250000000
+
+server:
+  applicationConnectors:
+  - type: http
+    port: 9000
+  adminConnectors:
+  - type: http
+    port: 9001
+
+  requestLog:
+    timeZone: CET
+    appenders:
+      - type: file
+        currentLogFilename: /home/stelios/codebase/knapsack-service/knapsack-server/logs/access.log
+        threshold: ALL
+        archive: true
+        archivedLogFilenamePattern: /home/stelios/codebase/knapsack-service/knapsack-server/logs/access.%d.log.gz
+        archivedFileCount: 10
+
+logging:
+  level: INFO
+  loggers:
+    io.dropwizard: INFO
+  appenders:
+    - type: console
+      timeZone: CET
+    - type: file
+      currentLogFilename: /home/stelios/codebase/knapsack-service/knapsack-server/logs/knapsack.log
+      archivedLogFilenamePattern: /home/stelios/codebase/knapsack-service/knapsack-server/logs/knapsack.%d.log.gz
+      archivedFileCount: 10
+      timeZone: CET
