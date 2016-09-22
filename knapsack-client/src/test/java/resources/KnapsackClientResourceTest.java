@@ -61,7 +61,7 @@ public class KnapsackClientResourceTest {
         Client client = mock(Client.class);
         ClientBuilder builder = mock(ClientBuilder.class);
         when(builder.buildClient(environment, configuration)).thenReturn(client);
-        KnapsackClientResource clientResourceReal = new KnapsackClientResource(environment, configuration, builder);
+        KnapsackClientResource clientResourceReal = new KnapsackClientResource(environment, configuration);
 //        KnapsackClientResource clientResource = mock(KnapsackClientResource.class);
 //        when(clientResource.buildClient(environment, configuration)).thenReturn(client);
 

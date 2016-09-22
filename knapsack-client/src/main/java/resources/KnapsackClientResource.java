@@ -29,14 +29,14 @@ public class KnapsackClientResource {
     private KnapsackClient knapsackClient;
     private Environment environment;
     private KnapsackClientConfiguration knapsackClientConfiguration;
-    private ClientBuilder clientBuilder;
+    private Client jerseyClient;
     private static Logger logger = LoggerFactory.getLogger(KnapsackClientResource.class);
 
-    public KnapsackClientResource(Environment environment, KnapsackClientConfiguration knapsackConfiguration, ClientBuilder builder) {
+    public KnapsackClientResource(Environment environment, KnapsackClientConfiguration knapsackConfiguration) {
         logger.info("Starting Knapsack Client");
         this.environment = environment;
         this.knapsackClientConfiguration = knapsackConfiguration;
-        this.clientBuilder = builder;
+        this.jerseyClient = new ClientBuilder().buildClient(environment, knapsackClientConfiguration);
     }
 
     @POST
@@ -44,7 +44,6 @@ public class KnapsackClientResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Solution call(Problem problem) throws IOException {
-        Client jerseyClient = clientBuilder.buildClient(environment, knapsackClientConfiguration);
         knapsackClient = new KnapsackClient(knapsackClientConfiguration.getServerHostname(), jerseyClient);
         return knapsackClient.getSolution(problem);
     }

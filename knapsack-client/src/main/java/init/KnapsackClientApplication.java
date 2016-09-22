@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import parameters.Campaign;
 import parameters.Problem;
-import resources.ClientBuilder;
 import resources.KnapsackClientInfoResource;
 import resources.KnapsackClientResource;
 
@@ -44,7 +43,7 @@ public class KnapsackClientApplication extends Application<KnapsackClientConfigu
     }
 
     private void setupResources(KnapsackClientConfiguration config, Environment environment) {
-        final KnapsackClientResource knapsackClientResource = new KnapsackClientResource(environment, config, new ClientBuilder());
+        final KnapsackClientResource knapsackClientResource = new KnapsackClientResource(environment, config);
         environment.jersey().register(knapsackClientResource);
         final KnapsackClientInfoResource knapsackClientInfoResource = new KnapsackClientInfoResource(config);
         environment.jersey().register(knapsackClientInfoResource);
