@@ -31,4 +31,12 @@ public class KnapsackConfiguration extends Configuration {
     public void setLargeProblemSet(int largeProblemSet) {
         this.largeProblemSet = String.valueOf(largeProblemSet);
     }
+
+    public void setEnvironment(String environment) {
+        this.environment = environment;
+    }
+
+    public void setLargeProblemSet(String largeProblemSet) {
+        this.largeProblemSet = largeProblemSet;
+    }
 }
