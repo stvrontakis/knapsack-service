@@ -53,6 +53,7 @@ public class KnapsackClientConfiguration extends Configuration {
         jerseyClientConfig.setConnectionRequestTimeout(Duration.seconds(Long.parseLong(socketTimeout)));
         jerseyClientConfig.setMaxConnections(Integer.parseInt(maxConnections));
         jerseyClientConfig.setKeepAlive(Duration.seconds(Long.parseLong(keepAlive)));
+        jerseyClientConfig.setTimeToLive(Duration.minutes(Long.parseLong(timeToLive)));
         return jerseyClientConfig;
     }
 

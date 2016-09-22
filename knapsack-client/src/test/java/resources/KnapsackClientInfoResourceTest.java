@@ -45,7 +45,7 @@ public class KnapsackClientInfoResourceTest {
         assertEquals("60 seconds", info.get("Timeout"));
         assertEquals("3 seconds", info.get("Connection timeout"));
         assertEquals("60 seconds", info.get("Connection request timeout"));
-        assertEquals("1 hour", info.get("Time to live"));
+        assertEquals("60 minutes", info.get("Time to live"));
         assertEquals("1", info.get("Max connections"));
         assertEquals("1 second", info.get("Keep alive"));
     }

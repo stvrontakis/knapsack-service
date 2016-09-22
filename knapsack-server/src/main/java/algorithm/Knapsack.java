@@ -16,13 +16,11 @@ import java.util.List;
  * Project: knapsack-service
  */
 public class Knapsack {
-    private int optimizeDp;
     private int largeProblemSet;
     private ExhaustiveKnapsack exhaustiveKnapsack;
     private FractorialKnapsack fractorialKnapsack;
 
     public Knapsack(int optimizeDp, int largeProblemSet) {
-        this.optimizeDp = optimizeDp;
         this.largeProblemSet = largeProblemSet;
         exhaustiveKnapsack = new ExhaustiveKnapsack(optimizeDp);
         fractorialKnapsack = new FractorialKnapsack();
