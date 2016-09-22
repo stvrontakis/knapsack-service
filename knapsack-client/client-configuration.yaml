@@ -22,10 +22,10 @@ server:
     timeZone: CET
     appenders:
       - type: file
-        currentLogFilename: /home/stelios/codebase/knapsack-service/knapsack-client/logs/access.log
+        currentLogFilename: /tmp/knapsack-service/knapsack-client/logs/access.log
         threshold: ALL
         archive: true
-        archivedLogFilenamePattern: /home/stelios/codebase/knapsack-service/knapsack-client/logs/access.%d.log.gz
+        archivedLogFilenamePattern: /tmp/knapsack-service/knapsack-client/logs/access.%d.log.gz
         archivedFileCount: 10
 
 logging:
@@ -36,7 +36,7 @@ logging:
     - type: console
       timeZone: CET
     - type: file
-      currentLogFilename: /home/stelios/codebase/knapsack-service/knapsack-client/logs/knapsack.log
-      archivedLogFilenamePattern: /home/stelios/codebase/knapsack-service/knapsack-client/logs/knapsack.%d.log.gz
+      currentLogFilename: /tmp/knapsack-service/knapsack-client/logs/knapsack.log
+      archivedLogFilenamePattern: /tmp/knapsack-service/knapsack-client/logs/knapsack.%d.log.gz
       archivedFileCount: 10
       timeZone: CET
