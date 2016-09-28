@@ -1,5 +1,7 @@
 package algorithm;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import parameters.Campaign;
 import parameters.MaximizedCampaign;
 import parameters.Problem;
@@ -16,6 +18,7 @@ import java.util.List;
  * Project: knapsack-service
  */
 public class Knapsack {
+    private static Logger logger = LoggerFactory.getLogger(Knapsack.class);
     private int largeProblemSet;
     private ExhaustiveKnapsack exhaustiveKnapsack;
     private FractorialKnapsack fractorialKnapsack;
@@ -28,8 +31,10 @@ public class Knapsack {
 
     public int[] calculateKnapsack(Problem problem) {
         if(problem.getInventory() < largeProblemSet) {
+            logger.info("Use exhaustive knapsack");
             return exhaustiveKnapsack.calculateKnapsack(problem);
         } else {
+            logger.info("Use greedy knapsack");
             return fractorialKnapsack.calculateKnapsack(problem);
         }
     }

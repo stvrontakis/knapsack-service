@@ -39,7 +39,7 @@ public class KnapsackEndpoint {
     public Solution calculate(Problem problem) throws IOException {
         int[] optimalCombination = knapsack.calculateKnapsack(problem);
         System.out.println("Knapsack server was called!");
-        System.out.println("Inventory: " + problem.getInventory());
+        logger.info("Knapsack server was called!");
         return knapsack.createSolution(optimalCombination, problem.getCampaigns());
     }
 }
